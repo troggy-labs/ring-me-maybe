@@ -23,7 +23,7 @@ export class LLMService {
     }
 
     if (!this.config.apiKey) {
-      throw new Error('LLM API key not configured. Please set REACT_APP_OPENAI_API_KEY in your environment.')
+      throw new Error('LLM API key not configured. Please set VITE_OPENAI_API_KEY in your environment.')
     }
 
     try {
@@ -89,5 +89,5 @@ export class LLMService {
 
 // Export a default instance
 export const llmService = new LLMService({
-  apiKey: import.meta.env.REACT_APP_OPENAI_API_KEY
+  apiKey: import.meta.env.VITE_OPENAI_API_KEY
 })

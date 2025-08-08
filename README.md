@@ -29,7 +29,7 @@ An AI-powered engagement ring designer that creates personalized ring designs ba
      - **Build Command**: `npm install && npm run build`
      - **Publish Directory**: `dist`
    - Add environment variable:
-     - `REACT_APP_OPENAI_API_KEY`: Your OpenAI API key
+     - `VITE_OPENAI_API_KEY`: Your OpenAI API key
 
 ### Method 2: Blueprint Deployment
 
@@ -41,7 +41,7 @@ An AI-powered engagement ring designer that creates personalized ring designs ba
 ## Environment Variables
 
 Set this in Render's Environment Variables section:
-- `REACT_APP_OPENAI_API_KEY`: Your OpenAI API key from https://platform.openai.com/api-keys
+- `VITE_OPENAI_API_KEY`: Your OpenAI API key from https://platform.openai.com/api-keys
 
 ## Local Development
 

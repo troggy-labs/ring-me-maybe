@@ -24,37 +24,33 @@ export class ImageService {
 
     const prompt = this.buildPrompt(specs, symbolism)
 
-    try {
-      const response = await fetch(`${this.config.baseUrl}/images/generations`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${this.config.apiKey}`,
-        },
-        body: JSON.stringify({
-          model: this.config.model,
-          prompt,
-          n: 1,
-          size: '1024x1024',
-          quality: 'hd',
-          style: 'natural'
-        })
+    const response = await fetch(`${this.config.baseUrl}/images/generations`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${this.config.apiKey}`,
+      },
+      body: JSON.stringify({
+        model: this.config.model,
+        prompt,
+        n: 1,
+        size: '1024x1024',
+        quality: 'hd',
+        style: 'natural'
       })
+    })
 
-      if (!response.ok) {
-        throw new Error(`Image API request failed: ${response.status} ${response.statusText}`)
-      }
-
-      const data = await response.json()
-      
-      if (!data.data || !data.data[0] || !data.data[0].url) {
-        throw new Error('Invalid response from image generation API')
-      }
-
-      return data.data[0].url
-    } catch (error) {
-      throw error
+    if (!response.ok) {
+      throw new Error(`Image API request failed: ${response.status} ${response.statusText}`)
     }
+
+    const data = await response.json()
+
+    if (!data.data || !data.data[0] || !data.data[0].url) {
+      throw new Error('Invalid response from image generation API')
+    }
+
+    return data.data[0].url
   }
 
   private buildPrompt(specs: RingSpecs, symbolism: SymbolismData): string {

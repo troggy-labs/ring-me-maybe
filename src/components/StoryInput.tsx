@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Loader2, Sparkles } from 'lucide-react'
+import { motion } from 'framer-motion'
 
 interface StoryInputProps {
   story: string
@@ -42,10 +43,12 @@ function StoryInput({ story, onStoryChange, onGenerate, isGenerating }: StoryInp
             </span>
           </div>
           
-          <button 
+          <motion.button
             className="generate-button"
             onClick={onGenerate}
             disabled={!story.trim() || isGenerating}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
           >
             {isGenerating ? (
               <>
@@ -58,7 +61,7 @@ function StoryInput({ story, onStoryChange, onGenerate, isGenerating }: StoryInp
                 Design My Ring
               </>
             )}
-          </button>
+          </motion.button>
         </div>
       </div>
       

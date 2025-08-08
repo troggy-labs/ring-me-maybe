@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { motion } from 'framer-motion'
 import type { RingSpecs, SymbolismData } from './types'
 import { llmService } from '../services/llmService'
 import { imageService } from '../services/imageService'
@@ -51,35 +52,64 @@ function RingDesigner() {
   return (
     <div className="ring-designer">
       <div className="designer-grid">
-        <div className="configuration-section">
-          <h2>Ring Configuration</h2>
-          <RingConfiguration 
-            specs={ringSpecs} 
-            onSpecsChange={setRingSpecs} 
-          />
-          
-          <h2>Your Love Story</h2>
-          <StoryInput 
-            story={story} 
-            onStoryChange={setStory}
-            onGenerate={handleGenerate}
-            isGenerating={isGenerating}
-          />
-        </div>
-        
-        <div className="visualization-section">
-          <RingVisualization 
-            specs={ringSpecs}
-            imageUrl={generatedImageUrl}
-            isGenerating={isGenerating}
-            error={error}
-          />
-          
-          {symbolism && generatedImageUrl && (
-            <RingExplanation 
-              symbolism={symbolism}
+        <div className="left-panel">
+          <motion.section
+            className="configuration-section"
+            id="config"
+            initial={{ opacity: 0, x: -50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            <h2>Ring Configuration</h2>
+            <RingConfiguration
               specs={ringSpecs}
+              onSpecsChange={setRingSpecs}
             />
+          </motion.section>
+
+          <motion.section
+            className="story-section"
+            id="story"
+            initial={{ opacity: 0, x: -50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+          >
+            <h2>Your Love Story</h2>
+            <StoryInput
+              story={story}
+              onStoryChange={setStory}
+              onGenerate={handleGenerate}
+              isGenerating={isGenerating}
+            />
+          </motion.section>
+        </div>
+
+        <div className="right-panel">
+          <motion.section
+            className="visualization-section"
+            id="preview"
+            initial={{ opacity: 0, x: 50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            <RingVisualization
+              specs={ringSpecs}
+              imageUrl={generatedImageUrl}
+              isGenerating={isGenerating}
+              error={error}
+            />
+          </motion.section>
+
+          {symbolism && generatedImageUrl && (
+            <motion.section
+              className="explanation-section"
+              id="explanation"
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+            >
+              <RingExplanation symbolism={symbolism} specs={ringSpecs} />
+            </motion.section>
           )}
         </div>
       </div>
